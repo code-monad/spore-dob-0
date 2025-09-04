@@ -67,6 +67,12 @@ pub enum Pattern {
     RawNumber,
     RawString,
     Utf8,
+    NervapeColor,
+    NervapeSerialNumber,
+    NervapeNote,
+    BtcFs,
+    BtcFs2,
+    CkbFs,
 }
 
 #[cfg_attr(test, derive(serde::Serialize, Clone))]
@@ -114,6 +120,12 @@ impl TraitSchema {
                 Pattern::RawNumber => "rawNumber".to_owned(),
                 Pattern::RawString => "rawString".to_owned(),
                 Pattern::Utf8 => "utf8".to_owned(),
+                Pattern::BtcFs => "btcfs".to_owned(),
+                Pattern::BtcFs2 => "btcfs2".to_owned(),
+                Pattern::CkbFs => "ckbfs".to_owned(),
+                Pattern::NervapeColor => "nervapeColor".to_owned(),
+                Pattern::NervapeSerialNumber => "nervapeSerialNumber".to_owned(),
+                Pattern::NervapeNote => "nervapeNote".to_owned(),
             }),
         ];
         if let Some(args) = &self.args {
@@ -127,7 +139,7 @@ pub fn decode_trait_schema(traits_pool: Value) -> Result<Vec<TraitSchema>, Error
     let traits_base = traits_pool
         .as_array()
         .ok_or(Error::ParseInvalidTraitsBase)?
-        .into_iter()
+        .iter()
         .map(|schema| {
             let schema = schema.as_array().ok_or(Error::ParseInvalidTraitsBase)?;
             if schema.len() < 5 {
@@ -144,6 +156,12 @@ pub fn decode_trait_schema(traits_pool: Value) -> Result<Vec<TraitSchema>, Error
                 "rawString" => Pattern::RawString,
                 "utf8" => Pattern::Utf8,
                 "range" => Pattern::Range,
+                "ckbfs" => Pattern::CkbFs,
+                "btcfs" => Pattern::BtcFs,
+                "btcfs2" => Pattern::BtcFs2,
+                "nervapeSerial" => Pattern::NervapeSerialNumber,
+                "nervapeColor" => Pattern::NervapeColor,
+                "nervapeNote" => Pattern::NervapeNote,
                 _ => return Err(Error::SchemaPatternMismatch),
             };
             let args = if let Some(args) = schema.get(5) {

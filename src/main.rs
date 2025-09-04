@@ -21,6 +21,7 @@ fn panic_handler(panic_info: &core::panic::PanicInfo) -> ! {
     syscall_exit(101)
 }
 
+#[allow(clippy::too_many_arguments)]
 fn syscall(mut a0: u64, a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, a7: u64) -> u64 {
     unsafe {
         core::arch::asm!(
@@ -40,6 +41,7 @@ fn syscall(mut a0: u64, a1: u64, a2: u64, a3: u64, a4: u64, a5: u64, a6: u64, a7
 
 fn syscall_exit(code: u64) -> ! {
     syscall(code, 0, 0, 0, 0, 0, 0, 93);
+    #[allow(clippy::empty_loop)]
     loop {}
 }
 
@@ -47,6 +49,9 @@ pub fn syscall_write(buf: *const u8) -> u64 {
     syscall(buf as u64, 0, 0, 0, 0, 0, 0, 2177)
 }
 
+/// # Safety
+/// This function is the entry point for the program and must be called by the system.
+/// It sets up the stack and calls main with the correct arguments.
 #[no_mangle]
 pub unsafe extern "C" fn _start() {
     core::arch::asm!(
@@ -61,13 +66,14 @@ pub unsafe extern "C" fn _start() {
 
 #[no_mangle]
 unsafe extern "C" fn main(argc: u64, argv: *const *const i8) -> u64 {
+    #[allow(static_mut_refs)]
     unsafe {
         ALLOC.lock().init(HEAPS.as_mut_ptr(), HEAPS_SIZE);
     }
 
     let mut args = Vec::new();
     for i in 0..argc {
-        let argn = unsafe { CStr::from_ptr(argv.add(i as usize).read()) };
+        let argn = unsafe { CStr::from_ptr(argv.add(i as usize).read() as *const u8) };
         args.push(argn.to_bytes());
     }
     let dob_params = match dobs_parse_parameters(args) {
@@ -77,9 +83,9 @@ unsafe extern "C" fn main(argc: u64, argv: *const *const i8) -> u64 {
     match dobs_decode(dob_params) {
         Ok(mut bytes) => {
             bytes.push(0);
-            syscall_write(bytes.as_ptr() as *const u8);
-            return 0;
+            syscall_write(bytes.as_ptr());
+            0
         }
-        Err(error) => return error as u64,
+        Err(error) => error as u64,
     }
 }

@@ -1,10 +1,13 @@
 use core::cmp;
 
-use alloc::{string::String, vec::Vec};
+use alloc::{format, string::String, string::ToString, vec::Vec};
 
 pub mod types;
+pub mod nervape_constants;
 use serde_json::Value;
 use types::{Error, Parameters, ParsedDNA, ParsedTrait, Pattern};
+
+use crate::decoder::nervape_constants::{NERVAPE_COLOR_NAMES, NERVAPE_NOTES};
 
 use self::types::decode_trait_schema;
 
@@ -84,6 +87,28 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 let offset = offset as usize % args.len();
                 args[offset].clone()
             }
+            Pattern::BtcFs => Value::String(format!("btcfs://{}i0", hex::encode(&dna_segment))),
+            Pattern::BtcFs2 => Value::String(format!("btcfs://{}i1", hex::encode(&dna_segment))),
+            Pattern::CkbFs => Value::String(format!("ckbfs://{}", hex::encode(&dna_segment))),
+            Pattern::NervapeColor => {
+                let color_index = parse_u8(dna_segment)?;
+                if (color_index as usize) < NERVAPE_COLOR_NAMES.len() {
+                    Value::String(NERVAPE_COLOR_NAMES[color_index as usize].to_string())
+                } else {
+                    Value::String("Other".to_string())
+                }
+            },
+            Pattern::NervapeNote => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_NOTES.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_NOTES[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeSerialNumber => {
+                todo!()
+            }
         };
         parsed_dna.traits.push(ParsedTrait {
             type_: schema_base.type_,
@@ -113,3 +138,42 @@ fn parse_u64(dna_segment: Vec<u8>) -> Result<u64, Error> {
     };
     Ok(offset)
 }
+fn parse_u8(dna_segment: Vec<u8>) -> Result<u8, Error> {
+    let offset = match dna_segment.len() {
+        1 => dna_segment[0] as u8,
+        2 => u16::from_le_bytes(dna_segment.clone().try_into().unwrap()) as u8,
+        3 | 4 => {
+            let mut buf = [0u8; 4];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u32::from_le_bytes(buf) as u8
+        }
+        5..=8 => {
+            let mut buf = [0u8; 8];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u64::from_le_bytes(buf) as u8
+        }
+        _ => return Err(Error::DecodeUnexpectedDNASegment),
+    };
+    Ok(offset)
+}
+
+// Add parse_u16 function
+fn parse_u16(dna_segment: Vec<u8>) -> Result<u16, Error> {
+    let offset = match dna_segment.len() {
+        1 => dna_segment[0] as u16,
+        2 => u16::from_le_bytes(dna_segment.clone().try_into().unwrap()),
+        3 | 4 => {
+            let mut buf = [0u8; 4];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u32::from_le_bytes(buf) as u16
+        }
+        5..=8 => {
+            let mut buf = [0u8; 8];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u64::from_le_bytes(buf) as u16
+        }
+        _ => return Err(Error::DecodeUnexpectedDNASegment),
+    };
+    Ok(offset)
+}
+
