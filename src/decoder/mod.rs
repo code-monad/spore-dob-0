@@ -2,12 +2,14 @@ use core::cmp;
 
 use alloc::{format, string::String, string::ToString, vec::Vec};
 
-pub mod types;
 pub mod nervape_constants;
+pub mod types;
 use serde_json::Value;
 use types::{Error, Parameters, ParsedDNA, ParsedTrait, Pattern};
 
-use crate::decoder::nervape_constants::{NERVAPE_COLOR_NAMES, NERVAPE_NOTES};
+use crate::decoder::nervape_constants::{
+    NERVAPE_COLOR_NAMES, NERVAPE_NOTES, NERVAPE_STRING_CONSTANTS,
+};
 
 use self::types::decode_trait_schema;
 
@@ -97,7 +99,7 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 } else {
                     Value::String("Other".to_string())
                 }
-            },
+            }
             Pattern::NervapeNote => {
                 let index = parse_u16(dna_segment)?;
                 if index as usize >= NERVAPE_NOTES.len() {
@@ -105,6 +107,18 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 } else {
                     Value::String(NERVAPE_NOTES[index as usize].to_string())
                 }
+            }
+            Pattern::NervapeString => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_STRING_CONSTANTS.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_STRING_CONSTANTS[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeInvolved => {
+                let index = parse_u16(dna_segment)?;
+                Value::String(String::default())
             }
             Pattern::NervapeSerialNumber => {
                 todo!()
@@ -176,4 +190,3 @@ fn parse_u16(dna_segment: Vec<u8>) -> Result<u16, Error> {
     };
     Ok(offset)
 }
-

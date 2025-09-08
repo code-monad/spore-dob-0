@@ -73,6 +73,8 @@ pub enum Pattern {
     BtcFs,
     BtcFs2,
     CkbFs,
+    NervapeString,
+    NervapeInvolved,
 }
 
 #[cfg_attr(test, derive(serde::Serialize, Clone))]
@@ -126,6 +128,8 @@ impl TraitSchema {
                 Pattern::NervapeColor => "nervapeColor".to_owned(),
                 Pattern::NervapeSerialNumber => "nervapeSerialNumber".to_owned(),
                 Pattern::NervapeNote => "nervapeNote".to_owned(),
+                Pattern::NervapeString => "nervapeString".to_owned(),
+                Pattern::NervapeInvolved => "nervapeInvolved".to_owned(),
             }),
         ];
         if let Some(args) = &self.args {
@@ -162,6 +166,8 @@ pub fn decode_trait_schema(traits_pool: Value) -> Result<Vec<TraitSchema>, Error
                 "nervapeSerial" => Pattern::NervapeSerialNumber,
                 "nervapeColor" => Pattern::NervapeColor,
                 "nervapeNote" => Pattern::NervapeNote,
+                "nervapeString" => Pattern::NervapeString,
+                "nervapeInvolved" => Pattern::NervapeInvolved,
                 _ => return Err(Error::SchemaPatternMismatch),
             };
             let args = if let Some(args) = schema.get(5) {
