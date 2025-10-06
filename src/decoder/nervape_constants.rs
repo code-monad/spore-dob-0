@@ -1,4 +1,4 @@
-pub const NERVAPE_COLOR_NAMES: [&str; 8] = [
+pub const NERVAPE_COLOR_NAMES: [&str; 10] = [
     "Pure White",
     "Calm Blue",
     "Fortune Gold",
@@ -7,6 +7,8 @@ pub const NERVAPE_COLOR_NAMES: [&str; 8] = [
     "Blush Pink",
     "Dreamy Black",
     "Thai Special",
+    "Lugano Special",
+    "Taipei Special",
 ];
 
 pub const NERVAPE_NOTES: [&str; 1] = [""];

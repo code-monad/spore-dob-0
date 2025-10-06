@@ -120,6 +120,26 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 let index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
+            Pattern::NervapeDescription => {
+                let index = parse_u16(dna_segment)?;
+                Value::String(String::default())
+            }
+            Pattern::NervapeJob => {
+                let index = parse_u8(dna_segment)?;
+                Value::String(String::default())
+            }
+            Pattern::NervapeExternal => {
+                let index = parse_u16(dna_segment)?;
+                Value::String(String::default())
+            }
+            Pattern::NervapeOrigin => {
+                let index = parse_u16(dna_segment)?;
+                Value::String(String::default())
+            }
+            Pattern::NervapeParts => {
+                let index = parse_u16(dna_segment)?;
+                Value::String(String::default())
+            }
             Pattern::NervapeSerialNumber => {
                 todo!()
             }

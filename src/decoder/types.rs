@@ -74,7 +74,12 @@ pub enum Pattern {
     BtcFs2,
     CkbFs,
     NervapeString,
+    NervapeDescription,
+    NervapeOrigin,
+    NervapeParts,
+    NervapeJob,
     NervapeInvolved,
+    NervapeExternal,
 }
 
 #[cfg_attr(test, derive(serde::Serialize, Clone))]
@@ -130,6 +135,11 @@ impl TraitSchema {
                 Pattern::NervapeNote => "nervapeNote".to_owned(),
                 Pattern::NervapeString => "nervapeString".to_owned(),
                 Pattern::NervapeInvolved => "nervapeInvolved".to_owned(),
+                Pattern::NervapeDescription => "nervapeDescription".to_owned(),
+                Pattern::NervapeJob => "nervapeJob".to_owned(),
+                Pattern::NervapeExternal => "nervapeExternal".to_owned(),
+                Pattern::NervapeOrigin => "nervapeOrigin".to_owned(),
+                Pattern::NervapeParts => "nervapeParts".to_owned(),
             }),
         ];
         if let Some(args) = &self.args {
