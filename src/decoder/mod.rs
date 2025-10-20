@@ -8,7 +8,7 @@ use serde_json::Value;
 use types::{Error, Parameters, ParsedDNA, ParsedTrait, Pattern};
 
 use crate::decoder::nervape_constants::{
-    NERVAPE_COLOR_NAMES, NERVAPE_NOTES, NERVAPE_STRING_CONSTANTS,
+    NERVAPE_COLOR_NAMES, NERVAPE_NOTES, NERVAPE_SERIES, NERVAPE_STRING_CONSTANTS,
 };
 
 use self::types::decode_trait_schema;
@@ -108,6 +108,14 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                     Value::String(NERVAPE_NOTES[index as usize].to_string())
                 }
             }
+            Pattern::NervapeSeries => {
+                let index = parse_u16(dna_segment)?;
+                let series = NERVAPE_SERIES
+                    .get(index as usize)
+                    .copied()
+                    .unwrap_or("");
+                Value::String(series.to_string())
+            }
             Pattern::NervapeString => {
                 let index = parse_u16(dna_segment)?;
                 if index as usize >= NERVAPE_STRING_CONSTANTS.len() {
@@ -117,27 +125,27 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 }
             }
             Pattern::NervapeInvolved => {
-                let index = parse_u16(dna_segment)?;
+                let _index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeDescription => {
-                let index = parse_u16(dna_segment)?;
+                let _index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeJob => {
-                let index = parse_u8(dna_segment)?;
+                let _index = parse_u8(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeExternal => {
-                let index = parse_u16(dna_segment)?;
+                let _index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeOrigin => {
-                let index = parse_u16(dna_segment)?;
+                let _index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeParts => {
-                let index = parse_u16(dna_segment)?;
+                let _index = parse_u16(dna_segment)?;
                 Value::String(String::default())
             }
             Pattern::NervapeSerialNumber => {

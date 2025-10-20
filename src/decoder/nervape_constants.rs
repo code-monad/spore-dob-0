@@ -7,11 +7,13 @@ pub const NERVAPE_COLOR_NAMES: [&str; 10] = [
     "Blush Pink",
     "Dreamy Black",
     "Thai Special",
-    "Lugano Special",
-    "Taipei Special",
+    "Orange Pill",
+    "Water Veins",
 ];
 
 pub const NERVAPE_NOTES: [&str; 1] = [""];
+
+pub const NERVAPE_SERIES: [&str; 3] = ["Color Vibes", "BTC Special", "Taiwan Special"];
 
 // Nervape Origin
 pub const NERVAPE_ORIGIN: [&str; 4] = [
