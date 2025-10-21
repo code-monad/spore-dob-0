@@ -110,8 +110,11 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
             }
             Pattern::NervapeSeries => {
                 let index = parse_u16(dna_segment)?;
-                let series = NERVAPE_SERIES.get(index as usize).copied().unwrap_or("");
-                Value::String(series.to_string())
+                if index as usize >= NERVAPE_SERIES.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_SERIES[index as usize].to_string())
+                }
             }
             Pattern::NervapeString => {
                 let index = parse_u16(dna_segment)?;
