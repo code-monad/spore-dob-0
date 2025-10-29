@@ -8,7 +8,8 @@ use serde_json::Value;
 use types::{Error, Parameters, ParsedDNA, ParsedTrait, Pattern};
 
 use crate::decoder::nervape_constants::{
-    NERVAPE_COLOR_NAMES, NERVAPE_NOTES, NERVAPE_SERIES, NERVAPE_STRING_CONSTANTS,
+    NERVAPE_COLOR_NAMES, NERVAPE_NOTES, NERVAPE_ORIGIN, NERVAPE_PARTS, NERVAPE_SERIES,
+    NERVAPE_STRING_CONSTANTS,
 };
 
 use self::types::decode_trait_schema;
@@ -141,12 +142,20 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 Value::String(String::default())
             }
             Pattern::NervapeOrigin => {
-                let _index = parse_u16(dna_segment)?;
-                Value::String(String::default())
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_ORIGIN.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_ORIGIN[index as usize].to_string())
+                }
             }
             Pattern::NervapeParts => {
-                let _index = parse_u16(dna_segment)?;
-                Value::String(String::default())
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_PARTS.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_PARTS[index as usize].to_string())
+                }
             }
             Pattern::NervapeSerialNumber => {
                 todo!()

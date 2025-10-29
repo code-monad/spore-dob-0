@@ -87,3 +87,5 @@ pub const NERVAPE_CHARACTER_DESCRIPTIONS: [&str; 21] = [
 
 // string constants
 pub const NERVAPE_STRING_CONSTANTS: [&str; 1] = [""];
+
+pub const NERVAPE_PARTS: [&str; 1] = [""];
