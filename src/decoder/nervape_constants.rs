@@ -25,20 +25,20 @@ pub const NERVAPE_ORIGIN: [&str; 4] = [
 
 // Nervape Characters
 pub const NERVAPE_CHARACTER_NAME: [&str; 14] = [
-    "Rookie",
-    "Developer",
-    "Whale",
-    "Miner",
-    "NFTer",
-    "Researcher",
-    "DeFier",
-    "Mechanic",
-    "Warrior",
-    "Summoner",
-    "Healer",
-    "Chef",
-    "Bard",
-    "Snooze",
+    "Rookie",     // 0
+    "Developer",  // 1
+    "Whale",      // 2
+    "Miner",      // 3
+    "NFTer",      // 4
+    "Researcher", // 5
+    "DeFier",     // 6
+    "Mechanic",   // 7
+    "Warrior",    // 8
+    "Summoner",   // 9
+    "Healer",     // 10
+    "Chef",       // 11
+    "Bard",       // 12
+    "Snooze",     // 13
 ];
 
 // Nervape Items
@@ -88,4 +88,80 @@ pub const NERVAPE_CHARACTER_DESCRIPTIONS: [&str; 21] = [
 // string constants
 pub const NERVAPE_STRING_CONSTANTS: [&str; 1] = [""];
 
-pub const NERVAPE_PARTS: [&str; 1] = [""];
+pub const NERVAPE_PARTS: [&str; 17] = [
+    "NONE", // 0
+    //———— HEAD ——————
+    "Bull Hat",          // 1
+    "Gorizlla Coke Hat", // 2
+    "Miner's Helmet",    // 3
+    "X'mas Whale Hat",   // 4
+    //———— EYE ——————
+    "Round Glasses", // 5
+    "VR Goggles",    // 6
+    // ———— NOSE ————
+    // EMPTY
+    // ———— EAR —————
+    // EMPTY
+    // ————Mouth————
+    "Cigar",       // 7
+    "X'mas Straw", // 8
+    // ————MASK————
+    "Santa Hermit Mask", // 9
+    // ————LEFT HAND————
+    "X'mas Whale's Jewelry LH", // 10
+    // ————RIGHT HAND————
+    "X'mas Whale's Jewelry RH", // 11
+    // ————Upper Body————
+    "Miner Stack Hoster Vest",
+    // ————Lower Body————
+    // EMPTY
+    // ————Companion————
+    "X'mas Chip",
+    // ————Back————
+    "Dev's Backpack",
+    "Miner Stack",
+    "Santa Bag",
+];
+
+pub const NERVAPE_JOB: [&str; 11] = [
+    "None", // 0
+    // JOB
+    "Defier",     // 1
+    "Developer",  // 2
+    "Miner",      // 3
+    "NFTer",      // 4
+    "Researcher", // 5
+    "Rookie",     // 6
+    "Whale",      // 7
+    // EXTRA
+    "Battery Pack",     // 8
+    "Dev's ID",         // 9
+    "Magnifying Glass", // 10
+];
+
+pub const NERVAPE_EXTERNAL: [&str; 24] = [
+    "Armchair",
+    "Bored Nervape #7777777",
+    "CCCPunk #7523",
+    "Dragon of Dream #0",
+    "Flask",
+    "Groovy Christmas Tree #1224",
+    "GroovyPunk #5217",
+    "Liquidity Pump",
+    "Loot (for Nervapes) Cave #2077",
+    "Nervape Figure (Gold)",
+    "Nervape Figure (Green)",
+    "Nervape Figure (Orange)",
+    "Nervape Figure (Pink)",
+    "Nervape Figure (Silver)",
+    "Nervape Figure (White)",
+    "PopTrust.bit #5",
+    "SantaPunk #6878",
+    "The Nerv Pound #1224",
+    "Virtual Present Pile",
+    "X'mas Candle Stand",
+    "X'mas Crystal Ball",
+    "X'mas Shopping Bag",
+    "X'mas Sleigh",
+    "X'mas Tree Book Shelf",
+];
