@@ -48,7 +48,7 @@ pub const NERVAPE_ITEM_NAME: [&str; 2] = ["B-Boat", "B-Book"];
 pub const NERVAPE_SPECIAL_NAME: [&str; 2] = ["JACK-O-RILLA", "Mirana Special"];
 
 // Nervape 3D NFT Descriptions
-pub const NERVAPE_CHARACTER_DESCRIPTIONS: [&str; 21] = [
+pub const NERVAPE_DESCRIPTIONS: [&str; 21] = [
     // ----------
     // Characters
     "Rookie stands on the sled, its scarf whips around. Has the dog taken Rookie on a wild goose chase? Nah, it was just some wind! But Rookie felt like a rollercoaster ride Never a bad thing to dream.", // Rookie
@@ -164,4 +164,10 @@ pub const NERVAPE_EXTERNAL: [&str; 24] = [
     "X'mas Shopping Bag",
     "X'mas Sleigh",
     "X'mas Tree Book Shelf",
+];
+
+pub const NERVAPE_EVENT: [&str; 3] = [
+    "",
+    "2022 Halloween Meme Campaign",
+    "Mirana Online Celebration",
 ];
