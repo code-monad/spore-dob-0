@@ -1,19 +1,40 @@
-pub const NERVAPE_COLOR_NAMES: [&str; 10] = [
-    "Pure White",
-    "Calm Blue",
-    "Fortune Gold",
-    "Nature Green",
-    "Lucky Lavender",
-    "Blush Pink",
-    "Dreamy Black",
-    "Thai Special",
-    "Orange Pill",
-    "Water Veins",
+pub const NERVAPE_COLOR_NAMES: [&str; 16] = [
+    "Pure White",     // 0
+    "Calm Blue",      // 1
+    "Fortune Gold",   // 2
+    "Nature Green",   // 3
+    "Lucky Lavender", // 4
+    "Blush Pink",     // 5
+    "Dreamy Black",   // 6
+    // Specials
+    "Thai Special", // 7
+    "Orange Pill",  // 8
+    "Water Veins",  // 9
+    // 合作款
+    "Flowing Earth",              // 10
+    "爱",                         // 11
+    "Luminous",                   // 12
+    "Empty Your Mind",            // 13
+    "原點 - Origin",              // 14
+    "(+886) Layers 我眼中的風景", // 15
 ];
 
-pub const NERVAPE_NOTES: [&str; 1] = [""];
+pub const NERVAPE_NOTES: [&str; 7] = [
+    "",                  // 0, empty
+    "by SC",             // 1, by SC
+    "by 岛",             // 2, by 岛
+    "by Eugenia Astor",  // 3, by Eugenia Astor
+    "by S11",            // 4, by S11
+    "by kenalwayscan",   // 5, by kenalwayscan
+    "by 劉銳 Liury Liu", // 6, by 劉銳 Liury Liu
+];
 
-pub const NERVAPE_SERIES: [&str; 3] = ["Color Vibes", "BTC Special", "Taiwan Special"];
+pub const NERVAPE_SERIES: [&str; 4] = [
+    "Color Vibes",       // 0
+    "BTC Special",       // 1
+    "Taiwan Special",    // 2
+    "Individual Artist", // 3
+];
 
 // Nervape Origin
 pub const NERVAPE_ORIGIN: [&str; 4] = [
