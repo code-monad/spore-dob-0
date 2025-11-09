@@ -8,9 +8,10 @@ use serde_json::Value;
 use types::{Error, Parameters, ParsedDNA, ParsedTrait, Pattern};
 
 use crate::decoder::nervape_constants::{
-    NERVAPE_CHARACTER_NAME, NERVAPE_COLOR_NAMES, NERVAPE_DESCRIPTIONS, NERVAPE_EXTERNAL,
-    NERVAPE_JOB, NERVAPE_NOTES, NERVAPE_ORIGIN, NERVAPE_PARTS, NERVAPE_SERIES,
-    NERVAPE_STRING_CONSTANTS,
+    NERVAPE_CHARACTER_NAME, NERVAPE_COLOR_NAMES, NERVAPE_DESCRIPTIONS, NERVAPE_EVENT,
+    NERVAPE_EXTERNAL, NERVAPE_ITEM_NAME, NERVAPE_ITEM_TYPE, NERVAPE_JOB, NERVAPE_NOTES,
+    NERVAPE_ORIGIN, NERVAPE_PARTS, NERVAPE_SCENE, NERVAPE_SERIES, NERVAPE_SPECIAL_NAME,
+    NERVAPE_STORY_NAME, NERVAPE_STRING_CONSTANTS,
 };
 
 use self::types::decode_trait_schema;
@@ -179,6 +180,62 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
             }
             Pattern::NervapeSerialNumber => {
                 todo!()
+            }
+            Pattern::NervapeEvent => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_EVENT.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_EVENT[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeItemType => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_ITEM_TYPE.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_ITEM_TYPE[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeItemName => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_ITEM_NAME.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_ITEM_NAME[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeStory => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_STORY_NAME.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_STORY_NAME[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeScene => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_SCENE.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_SCENE[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeSpecial => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_SPECIAL_NAME.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_SPECIAL_NAME[index as usize].to_string())
+                }
+            }
+            Pattern::NervapeCharacter => {
+                let index = parse_u16(dna_segment)?;
+                if index as usize >= NERVAPE_CHARACTER_NAME.len() {
+                    Value::String(String::default())
+                } else {
+                    Value::String(NERVAPE_CHARACTER_NAME[index as usize].to_string())
+                }
             }
         };
         parsed_dna.traits.push(ParsedTrait {

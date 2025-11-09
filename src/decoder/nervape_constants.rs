@@ -65,6 +65,8 @@ pub const NERVAPE_CHARACTER_NAME: [&str; 14] = [
 // Nervape Items
 pub const NERVAPE_ITEM_NAME: [&str; 2] = ["B-Boat", "B-Book"];
 
+pub const NERVAPE_ITEM_TYPE: [&str; 2] = ["Vehicle", "Electronic"];
+
 // Nervape Special
 pub const NERVAPE_SPECIAL_NAME: [&str; 2] = ["JACK-O-RILLA", "Mirana Special"];
 
@@ -192,3 +194,7 @@ pub const NERVAPE_EVENT: [&str; 3] = [
     "2022 Halloween Meme Campaign",
     "Mirana Online Celebration",
 ];
+
+pub const NERVAPE_STORY_NAME: [&str; 2] = ["None", "Story 001"];
+
+pub const NERVAPE_SCENE: [&str; 3] = ["Groovy Party", "Story 001", "X-mas Tree Summoning"];

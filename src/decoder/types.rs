@@ -81,6 +81,13 @@ pub enum Pattern {
     NervapeJob,
     NervapeInvolved,
     NervapeExternal,
+    NervapeStory,
+    NervapeSpecial,
+    NervapeItemName,
+    NervapeItemType,
+    NervapeEvent,
+    NervapeCharacter,
+    NervapeScene,
 }
 
 #[cfg_attr(test, derive(serde::Serialize, Clone))]
@@ -142,6 +149,13 @@ impl TraitSchema {
                 Pattern::NervapeExternal => "nervapeExternal".to_owned(),
                 Pattern::NervapeOrigin => "nervapeOrigin".to_owned(),
                 Pattern::NervapeParts => "nervapeParts".to_owned(),
+                Pattern::NervapeStory => "nervapeStory".to_owned(),
+                Pattern::NervapeItemType => "nervapeItemType".to_owned(),
+                Pattern::NervapeEvent => "nervapeEvent".to_owned(),
+                Pattern::NervapeItemName => "nervapeItem".to_owned(),
+                Pattern::NervapeSpecial => "nervapeSpecial".to_owned(),
+                Pattern::NervapeCharacter => "nervapeCharacter".to_owned(),
+                Pattern::NervapeScene => "nervapeScene".to_owned(),
             }),
         ];
         if let Some(args) = &self.args {
@@ -187,6 +201,12 @@ pub fn decode_trait_schema(traits_pool: Value) -> Result<Vec<TraitSchema>, Error
                 "nervapeExternal" => Pattern::NervapeExternal,
                 "nervapeOrigin" => Pattern::NervapeOrigin,
                 "nervapeParts" => Pattern::NervapeParts,
+                "nervapeItemType" => Pattern::NervapeItemType,
+                "nervapeEvent" => Pattern::NervapeEvent,
+                "nervapeItem" => Pattern::NervapeItemName,
+                "nervapeSpecial" => Pattern::NervapeSpecial,
+                "nervapeCharacter" => Pattern::NervapeCharacter,
+                "nervapeScene" => Pattern::NervapeScene,
                 _ => return Err(Error::SchemaPatternMismatch),
             };
             let args = if let Some(args) = schema.get(5) {
