@@ -155,12 +155,15 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
                 }
             }
             Pattern::NervapeExternal => {
-                let index = parse_u16(dna_segment)?;
-                if index as usize >= NERVAPE_EXTERNAL.len() {
-                    Value::String(String::default())
-                } else {
-                    Value::String(NERVAPE_EXTERNAL[index as usize].to_string())
+                let external_mask = parse_u32(dna_segment)?;
+                let mut externals = Vec::new();
+                for (idx, name) in NERVAPE_EXTERNAL.iter().enumerate() {
+                    let bit = 1u32 << idx;
+                    if external_mask & bit != 0 {
+                        externals.push(name.to_string());
+                    }
                 }
+                Value::String(externals.join(", "))
             }
             Pattern::NervapeOrigin => {
                 let index = parse_u16(dna_segment)?;
@@ -261,6 +264,25 @@ fn parse_u64(dna_segment: Vec<u8>) -> Result<u64, Error> {
             let mut buf = [0u8; 8];
             buf[..dna_segment.len()].copy_from_slice(&dna_segment);
             u64::from_le_bytes(buf)
+        }
+        _ => return Err(Error::DecodeUnexpectedDNASegment),
+    };
+    Ok(offset)
+}
+
+fn parse_u32(dna_segment: Vec<u8>) -> Result<u32, Error> {
+    let offset = match dna_segment.len() {
+        1 => dna_segment[0] as u32,
+        2 => u16::from_le_bytes(dna_segment.clone().try_into().unwrap()) as u32,
+        3 | 4 => {
+            let mut buf = [0u8; 4];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u32::from_le_bytes(buf)
+        }
+        5..=8 => {
+            let mut buf = [0u8; 8];
+            buf[..dna_segment.len()].copy_from_slice(&dna_segment);
+            u64::from_le_bytes(buf) as u32
         }
         _ => return Err(Error::DecodeUnexpectedDNASegment),
     };
