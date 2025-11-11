@@ -207,6 +207,7 @@ pub fn decode_trait_schema(traits_pool: Value) -> Result<Vec<TraitSchema>, Error
                 "nervapeSpecial" => Pattern::NervapeSpecial,
                 "nervapeCharacter" => Pattern::NervapeCharacter,
                 "nervapeScene" => Pattern::NervapeScene,
+                "nervapeStory" => Pattern::NervapeStory,
                 _ => return Err(Error::SchemaPatternMismatch),
             };
             let args = if let Some(args) = schema.get(5) {
