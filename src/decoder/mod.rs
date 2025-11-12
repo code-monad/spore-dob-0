@@ -94,7 +94,7 @@ pub fn dobs_decode(parameters: Parameters) -> Result<Vec<u8>, Error> {
             }
             Pattern::BtcFs => Value::String(format!("btcfs://{}i0", hex::encode(&dna_segment))),
             Pattern::BtcFs2 => Value::String(format!("btcfs://{}i1", hex::encode(&dna_segment))),
-            Pattern::CkbFs => Value::String(format!("ckbfs://{}", hex::encode(&dna_segment))),
+            Pattern::CkbFs => Value::String(format!("ckbfs://{}i0", hex::encode(&dna_segment))),
             Pattern::NervapeColor => {
                 let color_index = parse_u16(dna_segment)?;
                 if (color_index as usize) < NERVAPE_COLOR_NAMES.len() {
